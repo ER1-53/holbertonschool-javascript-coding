@@ -1,15 +1,12 @@
 #!/usr/bin/node
 
 const request = require('request');
-
 const url = process.argv[2];
 
-request(url, (error, reponse, body) => {
-
+request(url, function (error, response, body) {
   if (error) {
     console.log(error);
-  }
-  if (reponse && reponse.statusCode === 200) {
+  } else {
     const todos = JSON.parse(body);
     const tasksCompleted = {};
 
@@ -22,6 +19,7 @@ request(url, (error, reponse, body) => {
         }
       }
     }
+
     console.log(tasksCompleted);
   }
 });
