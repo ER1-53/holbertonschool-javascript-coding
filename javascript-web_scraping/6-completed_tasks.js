@@ -4,10 +4,12 @@ const request = require('request');
 
 const url = process.argv[2];
 
-request(url, (error, response, body) => {
+request(url, (error, reponse, body) => {
+
   if (error) {
     console.log(error);
-  } else {
+  }
+  if (reponse && reponse.statusCode === 200) {
     const todos = JSON.parse(body);
     const tasksCompleted = {};
 
@@ -20,7 +22,6 @@ request(url, (error, response, body) => {
         }
       }
     }
-
     console.log(tasksCompleted);
   }
 });
