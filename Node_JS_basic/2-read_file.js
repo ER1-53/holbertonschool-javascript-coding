@@ -9,7 +9,7 @@ function countStudents(path) {
   }
 
   const lines = data.split('\n');
-  const students = lines.filter(line => line).map(line => line.split(','));
+  const students = lines.filter((line) => line).map((line) => line.split(','));
 
   const numberOfStudents = students.length;
   console.log(`Number of students: ${numberOfStudents - 1}`);
