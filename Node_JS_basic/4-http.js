@@ -1,11 +1,12 @@
 const http = require('http');
 
-const app = http.createServer((req, res) => {
-  const sucess = res.writeHead(200, { 'Content-Type': 'text/plain' });
-  console.log('200');
-  res.end('Hello Holberton School!');
-});
+const host = 'localhost';
+const port = 1245;
 
-app.listen(1245);
+const requestListener = function (req, res) {
+  res.writeHead(200);
+  res.end("Hello Holberton School!");
+};
 
-module.exports = app;
+const server = http.createServer(requestListener);
+server.listen(port, host);
