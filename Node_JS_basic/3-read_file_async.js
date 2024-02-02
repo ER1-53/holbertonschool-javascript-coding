@@ -34,14 +34,14 @@ function countStudents(path) {
         }
       }
       const result = {
-        sentence1: `Number of students: ${nbOfLines - 1}`,
-        sentence2: `Number of students in CS: ${csStudents}. List: ${csStr}`,
-        sentence3: `Number of students in SWE: ${sweStudents}. List: ${sweStr}`,
+        total: `Number of students: ${nbOfLines - 1}`,
+        CS: `Number of students in CS: ${csStudents}. List: ${csStr}`,
+        SWE: `Number of students in SWE: ${sweStudents}. List: ${sweStr}`,
       };
 
-      console.log(result.sentence1);
-      console.log(result.sentence2);
-      console.log(result.sentence3);
+      console.log(result.total);
+      console.log(result.CS);
+      console.log(result.SWE);
       resolve(result);
     });
   });
