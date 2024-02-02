@@ -14,10 +14,12 @@ app.get('/students', (req, res) => {
     countStudents(path)
     .then((result) => {
         const rep = `${outp}\n${result.total}\n${result.CS}\n${result.SWE}`;
+        res.set('Content-Type', 'text/plain');
         res.send(rep);
     })
     .catch((err) => {
         const rep = `${outp}\n${err.message}`;
+        res.set('Content-Type', 'text/plain');
         res.send(rep);
     })
 });
