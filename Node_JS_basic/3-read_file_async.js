@@ -3,7 +3,7 @@ const fs = require('fs');
 function countStudents(path) {
   return new Promise((resolve, reject) => {
     fs.readFile(path, 'utf8', (error, data) => {
-      const lines = data.split('\n');
+      const lines = data.trim().split('\n').slice(1);
       const count = lines.length - 1;
       let countCS = 0;
       let countSWE = 0;
