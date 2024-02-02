@@ -7,7 +7,7 @@ function countStudents(path) {
         reject(new Error('Cannot load the database'));
         return;
       }
-      
+
       const lines = data.split('\n');
       const count = lines.length - 1;
       let countCS = 0;
@@ -35,8 +35,6 @@ function countStudents(path) {
       console.log(result.cs);
       console.log(result.swe);
       resolve(result);
-
-      
     });
   });
 }
