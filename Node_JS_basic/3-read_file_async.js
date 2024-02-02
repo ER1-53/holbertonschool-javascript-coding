@@ -9,7 +9,7 @@ function countStudents(path) {
       }
 
       const lines = data.trim().split('\n').slice(1);
-      const count = lines.length - 1;
+      const count = lines.length;
       let countCS = 0;
       let countSWE = 0;
       const CSstudient = [];
