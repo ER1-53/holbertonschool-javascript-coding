@@ -2,38 +2,46 @@ const fs = require('fs');
 
 function countStudents(path) {
   return new Promise((resolve, reject) => {
-    fs.readFile(path, 'utf8', (error, data) => {
+    fs.readFile(`./${path}`, 'utf8', (error, data) => {
       if (error) {
         reject(new Error('Cannot load the database'));
         return;
       }
-
-      const lines = data.split('\n');
-      const count = lines.length - 1;
-      let countCS = 0;
-      let countSWE = 0;
-      const CSstudient = [];
-      const SWEstudient = [];
-      const CS = 'CS';
-      const SWE = 'SWE';
-      for (let i = 1; i < lines.length; i++) {
-        const colonnes = lines[i].split(',');
-        if (colonnes[3] === 'CS') {
-          countCS++;
-          CSstudient.push(` ${colonnes[0]}`);
-        } else if (colonnes[3] === 'SWE') {
-          countSWE++;
-          SWEstudient.push(` ${colonnes[0]}`);
+      const lines = data.trim().split('\n');
+      let nbOfLines = 0;
+      let csStudents = 0;
+      let sweStudents = 0;
+      let csStr = '';
+      let sweStr = '';
+      for (const line of lines) {
+        if (line !== '') {
+          nbOfLines += 1;
+          const cuttedLine = line.split(',');
+          if (cuttedLine[3] === 'CS') {
+            if (csStr !== '') {
+              csStr += ', ';
+            }
+            csStr += cuttedLine[0];
+            csStudents += 1;
+          }
+          if (cuttedLine[3] === 'SWE') {
+            if (sweStr !== '') {
+              sweStr += ', ';
+            }
+            sweStr += cuttedLine[0];
+            sweStudents += 1;
+          }
         }
       }
       const result = {
-        total: `Number of students: ${count}`,
-        cs: `Number of students in ${CS}: ${countCS}. List:${CSstudient}`,
-        swe: `Number of students in ${SWE}: ${countSWE}. List:${SWEstudient}`,
+        sentence1: `Number of students: ${nbOfLines - 1}`,
+        sentence2: `Number of students in CS: ${csStudents}. List: ${csStr}`,
+        sentence3: `Number of students in SWE: ${sweStudents}. List: ${sweStr}`,
       };
-      console.log(result.total);
-      console.log(result.cs);
-      console.log(result.swe);
+
+      console.log(result.sentence1);
+      console.log(result.sentence2);
+      console.log(result.sentence3);
       resolve(result);
     });
   });
