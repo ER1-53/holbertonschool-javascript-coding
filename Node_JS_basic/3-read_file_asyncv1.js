@@ -1,29 +1,52 @@
-const fs = require('fs').promises;
+const fs = require('fs');
 
-async function countStudents(path) {
-  let data;
-  try {
-    data = await fs.readFile(path, { encoding: 'utf8' });
-  } catch (error) {
-    throw new Error('Cannot load the database');
-  }
+function countStudentsAsync(path) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(path, 'utf8', (err, data) => {
+      if (err) {
+        reject(new Error('Cannot load the database'));
+        return;
+      }
 
-  const lines = data.split('\n');
-  const students = lines.filter((line) => line).map((line) => line.split(','));
-  const numberOfStudents = students.length;
-  console.log(`Number of students: ${numberOfStudents}`);
+      const lines = data.trim().split('\n').slice(1);
+      let nbOfLine = 0;
+      let csStudent = 0;
+      let sweStudent = 0;
+      let csString = "";
+      let sweString = "";
 
-  const fields = {};
-  for (const student of students) {
-    const field = student[3];
-    if (!fields[field]) {
-      fields[field] = [];
-    }
-    fields[field].push(student[0]);
-  }
-  for (const field in fields) {
-    console.log(`Number of students in ${field}: ${fields[field].length}. List: ${fields[field].join(', ')}`);
-  }
+      for (const line of lines) {
+        if (line !== '') {
+          nbOfLine += 1;
+          const cutLine = line.split(',');
+          if (cutLine[3] === 'CS') {
+            csStudent += 1;
+            if (csString !== "") {
+              csString += ', ';
+              }
+              csString += cutLine[0];
+          }
+          else if (cutLine[3] === 'SWE') {
+            sweStudent += 1;
+            if (sweString !== "") {
+              sweString += ', ';
+              }
+              sweString += cutLine[0];
+          }
+        }
+      }
+
+      const result = {
+        sentence1: `Number of students: ${nbOfLine}`,
+        sentence2: `Number of students in CS: ${csStudent}. List: ${csString}`,
+        sentence3: `Number of students in SWE: ${sweStudent}. List: ${sweString}`,
+      }
+      console.log(result.sentence1);
+      console.log(result.sentence2);
+      console.log(result.sentence3);
+      resolve(result);
+    });
+  });
 }
 
-module.exports = countStudents;
+module.exports = countStudentsAsync;

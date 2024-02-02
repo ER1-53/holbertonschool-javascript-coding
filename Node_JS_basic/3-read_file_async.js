@@ -8,8 +8,8 @@ function countStudents(path) {
         return;
       }
 
-      const lines = data.trim().split('\n').slice(1);
-      const count = lines.length;
+      const lines = data.split('\n');
+      const count = lines.length - 1;
       let countCS = 0;
       let countSWE = 0;
       const CSstudient = [];
