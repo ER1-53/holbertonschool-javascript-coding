@@ -1,4 +1,4 @@
-function welcome() {
+function sayMyNameBitch() {
   process.stdout.write('Welcome to Holberton School, what is your name?\n');
   process.stdin.on('data', (input) => {
     process.stdout.write(`Your name is: ${input.toString()}`);
@@ -7,6 +7,8 @@ function welcome() {
   });
 }
 
-module.exports = welcome;
+module.exports = sayMyNameBitch;
 
-welcome();
+if (require.main === module) {
+  sayMyNameBitch();
+}
