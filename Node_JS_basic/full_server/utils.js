@@ -8,17 +8,17 @@ function readDatabase(path) {
         return;
       }
       const lines = data.trim().split('\n');
-      let csArray = [];
-      let sweArray = [];
+      const csArray = [];
+      const sweArray = [];
       for (const line of lines) {
         const cutLine = line.split(',');
-          if (cutLine[3] === 'CS') {
-            csArray.push(cutLine[0])
-          }
-          if (cutLine[3] === 'SWE') {
-            sweArray.push(cutLine[0])
-          }
+        if (cutLine[3] === 'CS') {
+          csArray.push(cutLine[0]);
         }
+        if (cutLine[3] === 'SWE') {
+          sweArray.push(cutLine[0]);
+        }
+      }
 
       const result = {
         CS: csArray,
@@ -26,11 +26,8 @@ function readDatabase(path) {
       };
 
       resolve(result);
-    })
+    });
   });
-   
 }
 
 module.exports = readDatabase;
-
-
